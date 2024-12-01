@@ -496,15 +496,15 @@ burger
     
     
     .imgBox {
-        /* border: green solid ; */
-        width:  374px;
+        border: green solid ;
+        width:  335px;
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
     .previousProject img {
-        width: 370px;
-        height: 229px;
+        width: 335px;
+        height: 209px;
     }
     .previousProject p {
         
