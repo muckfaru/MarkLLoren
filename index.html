@@ -6,27 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Mark Angelo Lloren — Full-stack developer portfolio. Explore projects, skills, and experience in web development.">
+    <meta name="theme-color" content="#070707">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mark Angelo Lloren | Developer Portfolio">
+    <meta property="og:description" content="Full-stack developer from Quezon City, PH. Projects, skills, and experience.">
+    <meta property="og:url" content="https://muckfaru.github.io/MarkLLoren/">
+    <meta property="og:image" content="https://muckfaru.github.io/MarkLLoren/img/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Mark Angelo Lloren | Developer Portfolio</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="index.css?v=3">
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23e8a849'/><text x='32' y='45' text-anchor='middle' font-family='Arial,sans-serif' font-weight='900' font-size='36' fill='%23070707'>M</text></svg>">
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body>
+    <a class="skip-link" href="#about">Skip to content</a>
 
-    <!-- Cursor Glow -->
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <!-- Preloader: the curtain lifts by CSS alone, so it never blocks the page -->
+    <div class="preloader" aria-hidden="true">
+        <span class="preloader-name">Mark Angelo Lloren</span>
+        <span class="preloader-count" id="preCount">00</span>
+        <span class="preloader-bar"></span>
+    </div>
+
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel"></span></div>
+    <div class="aurora" aria-hidden="true"></div>
 
     <!-- ========== NAVIGATION ========== -->
     <nav class="navbar" id="navbar">
-        <a href="#" class="nav-logo">Mark//</a>
+        <a href="#hero" class="nav-logo">Mark<span>//</span></a>
 
         <div class="nav-links" id="navLinks">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
+            <a href="#life">Life</a>
             <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
         </div>
 
         <div class="nav-socials">
@@ -35,7 +58,7 @@
                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
             </a>
-            <a href="https://www.instagram.com/marulloren/" aria-label="Instagram">
+            <a href="https://www.instagram.com/marulloren/" target="_blank" rel="noopener" aria-label="Instagram">
                 <svg viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor"
                         stroke-width="2" />
@@ -43,7 +66,8 @@
                     <circle cx="17.5" cy="6.5" r="1.5" />
                 </svg>
             </a>
-            <a href="https://www.linkedin.com/in/lloren-mark-angelo-a45288406/" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/lloren-mark-angelo-a45288406/" target="_blank" rel="noopener"
+                aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect x="2" y="9" width="4" height="12" />
@@ -52,498 +76,646 @@
             </a>
         </div>
 
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
         </button>
     </nav>
 
-    <!-- ========== HERO — Split Screen ========== -->
-    <section class="hero" id="hero">
-        <canvas id="particle-canvas"></canvas>
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Available for work
+    <main>
+        <!-- ========== HERO: particle portrait ========== -->
+        <section class="hero" id="hero">
+            <canvas id="heroCanvas" aria-hidden="true"></canvas>
+            <img class="hero-fallback" src="img/grad.jpg" alt="" aria-hidden="true">
+
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Available for work
+                </div>
+                <h1 class="hero-name">
+                    <span class="line"><span>Mark</span></span>
+                    <span class="line"><span>Angelo</span></span>
+                    <span class="line"><span class="gradient-text">Lloren</span></span>
+                </h1>
+                <p class="hero-role">
+                    I build
+                    <span class="sr-only">full-stack web apps, responsive interfaces, REST APIs, e-commerce platforms
+                        and learning games.</span>
+                    <span class="role-swap" id="roleSwap" aria-hidden="true">
+                        <span class="is-active">full-stack web apps</span>
+                        <span>responsive interfaces</span>
+                        <span>REST APIs</span>
+                        <span>e-commerce platforms</span>
+                        <span>learning games</span>
+                    </span>
+                </p>
+                <p class="hero-subtitle">
+                    IT graduate from Quezon City, crafting responsive web experiences — from pixel-perfect front-ends
+                    to robust back-end APIs.
+                </p>
+                <div class="hero-cta-group">
+                    <button class="btn btn-primary" id="openResumeBtn" data-magnetic>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                        View Résumé
+                    </button>
+                    <a href="#projects" class="btn btn-outline" data-magnetic>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
+                        See Projects
+                    </a>
+                </div>
             </div>
-            <h1 class="hero-name">
-                Mark<br>Angelo<br>
-                <span class="gradient-text">Lloren</span>
-            </h1>
-            <p class="hero-subtitle">
-                Full-stack developer crafting responsive web experiences — from pixel-perfect front-ends to robust
-                back-end APIs.
+
+            <p class="hero-hint" aria-hidden="true">
+                <span class="hint-fine">Move your cursor through the portrait</span>
+                <span class="hint-coarse">Touch the portrait</span>
             </p>
-            <div class="hero-cta-group">
-                <button class="btn btn-primary" id="openResumeBtn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                        <polyline points="14 2 14 8 20 8" />
-                    </svg>
-                    View Résumé
-                </button>
-                <a href="#projects" class="btn btn-outline">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                        <line x1="8" y1="21" x2="16" y2="21" />
-                        <line x1="12" y1="17" x2="12" y2="21" />
-                    </svg>
-                    See Projects
-                </a>
+            <span class="hero-vertical" aria-hidden="true">Developer / Creator</span>
+            <div class="hero-scroll-indicator" aria-hidden="true">
+                <div class="scroll-mouse"></div>
+                <span class="scroll-text">Scroll</span>
             </div>
-        </div>
-        <div class="hero-image-panel">
-            <img src="IMG_20220704_092953_720.jpg" alt="Mark Angelo Lloren">
-            <span class="hero-image-overlay-text">Developer / Creator</span>
-        </div>
-        <div class="hero-scroll-indicator">
-            <div class="scroll-mouse"></div>
-            <span class="scroll-text">Scroll</span>
-        </div>
-    </section>
+        </section>
 
-    <!-- ========== MARQUEE BANNER ========== -->
-    <div class="marquee-banner">
-        <div class="marquee-track">
-            <span class="marquee-item">React</span>
-            <span class="marquee-item">Vue.js</span>
-            <span class="marquee-item">Angular</span>
-            <span class="marquee-item">Node.js</span>
-            <span class="marquee-item">PHP</span>
-            <span class="marquee-item">JavaScript</span>
-            <span class="marquee-item">TypeScript</span>
-            <span class="marquee-item">MySQL</span>
-            <span class="marquee-item">Firebase</span>
-            <span class="marquee-item">REST APIs</span>
-            <span class="marquee-item">Bootstrap</span>
-            <span class="marquee-item">Tailwind CSS</span>
-            <!-- Duplicate for seamless loop -->
-            <span class="marquee-item">React</span>
-            <span class="marquee-item">Vue.js</span>
-            <span class="marquee-item">Angular</span>
-            <span class="marquee-item">Node.js</span>
-            <span class="marquee-item">PHP</span>
-            <span class="marquee-item">JavaScript</span>
-            <span class="marquee-item">TypeScript</span>
-            <span class="marquee-item">MySQL</span>
-            <span class="marquee-item">Firebase</span>
-            <span class="marquee-item">REST APIs</span>
-            <span class="marquee-item">Bootstrap</span>
-            <span class="marquee-item">Tailwind CSS</span>
-        </div>
-    </div>
-
-    <!-- ========== ABOUT ========== -->
-    <section class="section about" id="about">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <p class="section-label">// About</p>
-                <h2 class="section-title">The person behind<br>the code</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="about-grid">
-                <div class="about-image-wrapper reveal">
-                    <img src="IMG_20220704_092953_720.jpg" alt="Mark Angelo Lloren" class="about-image">
-                </div>
-                <div class="about-text reveal reveal-delay-2">
-                    <h3>Full-Stack Web Developer</h3>
-                    <p>
-                        Information Technology graduate with hands-on experience in full-stack web development across
-                        front-end and back-end systems. Skilled in building responsive UI components with React, Vue,
-                        and Angular, developing REST APIs with Node.js and PHP, and working with relational and NoSQL
-                        databases.
-                    </p>
-                    <p>
-                        Experienced in debugging, code reviews, and collaborating with designers and stakeholders to
-                        ship e-commerce platforms, ticketing systems, archive management solutions, and cybersecurity
-                        learning applications.
-                    </p>
-                    <div class="about-details">
-                        <div class="about-detail-item">
-                            <div class="label">Name</div>
-                            <div class="value">Mark Angelo C. Lloren</div>
-                        </div>
-                        <div class="about-detail-item">
-                            <div class="label">University</div>
-                            <div class="value">Quezon City University</div>
-                        </div>
-                        <div class="about-detail-item">
-                            <div class="label">Focus</div>
-                            <div class="value">Web Development</div>
-                        </div>
-                        <div class="about-detail-item">
-                            <div class="label">Status</div>
-                            <div class="value">Open to Work</div>
-                        </div>
-                    </div>
-                </div>
+        <!-- ========== MARQUEE ========== -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track" id="marqueeTrack">
+                <span>React</span><span class="alt">Vue.js</span><span>Angular</span><span
+                    class="alt">Node.js</span><span>PHP</span><span class="alt">JavaScript</span><span>TypeScript</span><span
+                    class="alt">MySQL</span><span>Firebase</span><span class="alt">REST APIs</span><span>Bootstrap</span><span
+                    class="alt">Tailwind CSS</span>
+                <span>React</span><span class="alt">Vue.js</span><span>Angular</span><span
+                    class="alt">Node.js</span><span>PHP</span><span class="alt">JavaScript</span><span>TypeScript</span><span
+                    class="alt">MySQL</span><span>Firebase</span><span class="alt">REST APIs</span><span>Bootstrap</span><span
+                    class="alt">Tailwind CSS</span>
             </div>
         </div>
-    </section>
 
-    <!-- ========== SKILLS ========== -->
-    <section class="section skills" id="skills">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <p class="section-label">// Tech Stack</p>
-                <h2 class="section-title">Skills &amp; Technologies</h2>
-                <div class="section-divider"></div>
+        <!-- ========== ABOUT ========== -->
+        <section class="section about" id="about">
+            <div class="section-container">
+                <header class="section-header" data-index="01">
+                    <p class="section-label">About</p>
+                    <h2 class="section-title lines">
+                        <span class="line"><span>The person <em>behind</em></span></span>
+                        <span class="line"><span>the code</span></span>
+                    </h2>
+                </header>
+                <div class="about-grid">
+                    <div class="about-photo reveal">
+                        <button class="flip-card" id="flipCard" data-tilt data-cursor="Flip" aria-pressed="false"
+                            aria-label="Flip the photo">
+                            <span class="flip-inner">
+                                <span class="flip-face flip-front">
+                                    <img src="img/grad.jpg" alt="Mark Angelo Lloren in his graduation toga">
+                                    <span class="flip-tag">BSIT · Class of 2026</span>
+                                </span>
+                                <span class="flip-face flip-back">
+                                    <img src="img/sunset-2.jpg" alt="Mark sitting by the sea at sunset"
+                                        loading="lazy">
+                                    <span class="flip-caption">Tomorrow is another day.</span>
+                                </span>
+                            </span>
+                        </button>
+                        <p class="flip-hint">Tap the photo to flip it ↻</p>
+                    </div>
+                    <div class="about-text reveal reveal-delay-2">
+                        <h3>Full-Stack Web Developer</h3>
+                        <p>
+                            Information Technology graduate with hands-on experience in full-stack web development
+                            across front-end and back-end systems. Skilled in building responsive UI components with
+                            React, Vue, and Angular, developing REST APIs with Node.js and PHP, and working with
+                            relational and NoSQL databases.
+                        </p>
+                        <p>
+                            Experienced in debugging, code reviews, and collaborating with designers and stakeholders
+                            to ship e-commerce platforms, ticketing systems, archive management solutions, and
+                            cybersecurity learning applications.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat">
+                                <span class="stat-num" data-count>5</span>
+                                <span class="stat-label">Projects built</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-num" data-count>7</span>
+                                <span class="stat-label">Months as a dev intern</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-num" data-count>2026</span>
+                                <span class="stat-label">BSIT graduate</span>
+                            </div>
+                        </div>
+                        <div class="about-details">
+                            <div class="about-detail-item">
+                                <div class="label">Name</div>
+                                <div class="value">Mark Angelo C. Lloren</div>
+                            </div>
+                            <div class="about-detail-item">
+                                <div class="label">University</div>
+                                <div class="value">Quezon City University</div>
+                            </div>
+                            <div class="about-detail-item">
+                                <div class="label">Focus</div>
+                                <div class="value">Web Development</div>
+                            </div>
+                            <div class="about-detail-item">
+                                <div class="label">Status</div>
+                                <div class="value">Open to Work</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skills-grid">
-                <!-- HTML -->
-                <div class="skill-card reveal">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <path fill="#E65100" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z" />
-                            <path fill="#FF6D00" d="M24 8L24 39.9 35.2 36.7 37.7 8z" />
-                            <path fill="#FFF"
-                                d="M24,25v-4h8.6l-0.7,11.5L24,35.1v-4.2l4.1-1.4l0.3-4.5H24z M32.9,17l0.3-4H24v4H32.9z" />
-                            <path fill="#EEE"
-                                d="M24,30.9v4.2l-7.9-2.6L15.7,27h4l0.2,2.5L24,30.9z M19.1,17H24v-4h-9.1l0.7,12H24v-4h-4.6L19.1,17z" />
-                        </svg>
+        </section>
+
+        <!-- ========== SKILLS: 3D sphere ========== -->
+        <section class="section skills" id="skills">
+            <div class="section-container skills-layout">
+                <div class="skills-copy">
+                    <header class="section-header" data-index="02">
+                        <p class="section-label">Tech Stack</p>
+                        <h2 class="section-title lines">
+                            <span class="line"><span>Skills &amp;</span></span>
+                            <span class="line"><span><em>Technologies</em></span></span>
+                        </h2>
+                    </header>
+                    <div class="skill-groups">
+                        <div class="skill-group reveal">
+                            <h3>Languages</h3>
+                            <ul>
+                                <li>JavaScript</li>
+                                <li>TypeScript</li>
+                                <li>PHP</li>
+                                <li>Java</li>
+                                <li>C++</li>
+                                <li>VB.NET</li>
+                                <li>GDScript</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group reveal reveal-delay-1">
+                            <h3>Frontend</h3>
+                            <ul>
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>React</li>
+                                <li>Vue</li>
+                                <li>Angular</li>
+                                <li>Bootstrap</li>
+                                <li>Tailwind CSS</li>
+                                <li>3D / WebGL</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group reveal reveal-delay-2">
+                            <h3>Backend &amp; Data</h3>
+                            <ul>
+                                <li>Node.js</li>
+                                <li>REST APIs</li>
+                                <li>MySQL</li>
+                                <li>Oracle</li>
+                                <li>Firebase Firestore</li>
+                            </ul>
+                        </div>
+                        <div class="skill-group reveal reveal-delay-3">
+                            <h3>Tools &amp; Integrations</h3>
+                            <ul>
+                                <li>Git</li>
+                                <li>VS Code</li>
+                                <li>Visual Studio</li>
+                                <li>Godot Engine</li>
+                                <li>Firebase Google OAuth</li>
+                                <li>PayMongo</li>
+                                <li>PayPal</li>
+                            </ul>
+                        </div>
                     </div>
-                    <span class="skill-name">HTML5</span>
                 </div>
-                <!-- CSS -->
-                <div class="skill-card reveal reveal-delay-1">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <linearGradient id="css-gr" x1="16.33" x2="32.29" y1="-2.75" y2="41.11"
-                                gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#2aa4f4" />
-                                <stop offset="1" stop-color="#007ad9" />
-                            </linearGradient>
-                            <path fill="url(#css-gr)"
-                                d="M7.192,7.176l2.627,29.77c0.109,1.237,0.97,2.28,2.164,2.621l10.643,3.041c0.898,0.257,1.849,0.257,2.747,0l10.643-3.041c1.194-0.341,2.055-1.383,2.164-2.621l2.627-29.77C40.911,6.006,39.99,5,38.816,5H9.184C8.01,5,7.089,6.006,7.192,7.176z" />
-                            <path fill="#35c1f1"
-                                d="M24,8v31.9l9.876-2.822c0.797-0.228,1.371-0.924,1.443-1.749l2.286-26.242C37.656,8.502,37.196,8,36.609,8H24z" />
-                            <path fill="#fff"
-                                d="M33.1,13H24v4h4.9l-0.3,4H24v4h4.4l-0.3,4.5L24,30.9v4.2l7.9-2.6L32.6,21l0,0L33.1,13z" />
-                            <path fill="#d6e0e9"
-                                d="M24,13v4h-8.9l-0.3-4H24z M19.4,21l0.2,4H24v-4H19.4z M19.8,27h-4l0.3,5.5l7.9,2.6v-4.2l-4.1-1.4L19.8,27z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">CSS3</span>
-                </div>
-                <!-- JavaScript -->
-                <div class="skill-card reveal reveal-delay-2">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <path fill="#ffd600" d="M6,42V6h36v36H6z" />
-                            <path fill="#000001"
-                                d="M29.538 32.947c.692 1.124 1.444 2.201 3.037 2.201 1.338 0 2.04-.665 2.04-1.585 0-1.101-.726-1.492-2.198-2.133l-.807-.344c-2.329-.988-3.878-2.226-3.878-4.841 0-2.41 1.845-4.244 4.728-4.244 2.053 0 3.528.711 4.592 2.573l-2.514 1.607c-.553-.988-1.151-1.377-2.078-1.377-.946 0-1.545.597-1.545 1.377 0 .964.6 1.354 1.985 1.951l.807.344C36.452 29.645 38 30.839 38 33.523 38 36.415 35.716 38 32.65 38c-2.999 0-4.702-1.505-5.65-3.368L29.538 32.947zM17.952 33.029c.506.906 1.275 1.603 2.381 1.603 1.058 0 1.667-.418 1.667-2.043V22h3.333v11.101c0 3.367-1.953 4.899-4.805 4.899-2.577 0-4.437-1.746-5.195-3.368L17.952 33.029z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">JavaScript</span>
-                </div>
-                <!-- PHP -->
-                <div class="skill-card reveal reveal-delay-3">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-                            <path fill="#dcd5f2"
-                                d="M40,61.5C18.22,61.5,0.5,51.855,0.5,40S18.22,18.5,40,18.5S79.5,28.145,79.5,40S61.78,61.5,40,61.5z" />
-                            <path fill="#8b75a1"
-                                d="M40,19c21.505,0,39,9.421,39,21S61.505,61,40,61S1,51.579,1,40S18.495,19,40,19 M40,18C17.909,18,0,27.85,0,40s17.909,22,40,22s40-9.85,40-22S62.091,18,40,18L40,18z" />
-                            <path fill="#36404d"
-                                d="M25.112 34c1.725 0 3.214.622 4.084 1.706.749.934.981 2.171.668 3.577C29.023 43.074 27.395 44 21.57 44h-4.14l1.75-10H25.112M25.112 32H17.5L14 52h2l1.056-6h4.515c5.863 0 9.053-.905 10.246-6.284C32.842 35.096 29.436 32 25.112 32L25.112 32zM61.112 34c1.725 0 3.214.622 4.084 1.706.749.934.981 2.171.668 3.577C65.023 43.074 63.395 44 57.57 44h-4.14l1.75-10H61.112M61.112 32H53.5L50 52h2l1.056-6h4.515c5.863 0 9.053-.905 10.246-6.284C68.842 35.096 65.436 32 61.112 32L61.112 32z" />
-                            <g>
+
+                <div class="skills-orbit reveal reveal-delay-2" data-cursor="Drag">
+                    <ul class="sphere" id="skillSphere" aria-hidden="true">
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#E65100" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z" />
+                                <path fill="#FF6D00" d="M24 8L24 39.9 35.2 36.7 37.7 8z" />
+                                <path fill="#FFF"
+                                    d="M24,25v-4h8.6l-0.7,11.5L24,35.1v-4.2l4.1-1.4l0.3-4.5H24z M32.9,17l0.3-4H24v4H32.9z" />
+                                <path fill="#EEE"
+                                    d="M24,30.9v4.2l-7.9-2.6L15.7,27h4l0.2,2.5L24,30.9z M19.1,17H24v-4h-9.1l0.7,12H24v-4h-4.6L19.1,17z" />
+                            </svg>
+                            <span>HTML5</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <linearGradient id="css-gr" x1="16.33" x2="32.29" y1="-2.75" y2="41.11"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#2aa4f4" />
+                                    <stop offset="1" stop-color="#007ad9" />
+                                </linearGradient>
+                                <path fill="url(#css-gr)"
+                                    d="M7.192,7.176l2.627,29.77c0.109,1.237,0.97,2.28,2.164,2.621l10.643,3.041c0.898,0.257,1.849,0.257,2.747,0l10.643-3.041c1.194-0.341,2.055-1.383,2.164-2.621l2.627-29.77C40.911,6.006,39.99,5,38.816,5H9.184C8.01,5,7.089,6.006,7.192,7.176z" />
+                                <path fill="#35c1f1"
+                                    d="M24,8v31.9l9.876-2.822c0.797-0.228,1.371-0.924,1.443-1.749l2.286-26.242C37.656,8.502,37.196,8,36.609,8H24z" />
+                                <path fill="#fff"
+                                    d="M33.1,13H24v4h4.9l-0.3,4H24v4h4.4l-0.3,4.5L24,30.9v4.2l7.9-2.6L32.6,21l0,0L33.1,13z" />
+                                <path fill="#d6e0e9"
+                                    d="M24,13v4h-8.9l-0.3-4H24z M19.4,21l0.2,4H24v-4H19.4z M19.8,27h-4l0.3,5.5l7.9,2.6v-4.2l-4.1-1.4L19.8,27z" />
+                            </svg>
+                            <span>CSS3</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#ffd600" d="M6,42V6h36v36H6z" />
+                                <path fill="#000001"
+                                    d="M29.538 32.947c.692 1.124 1.444 2.201 3.037 2.201 1.338 0 2.04-.665 2.04-1.585 0-1.101-.726-1.492-2.198-2.133l-.807-.344c-2.329-.988-3.878-2.226-3.878-4.841 0-2.41 1.845-4.244 4.728-4.244 2.053 0 3.528.711 4.592 2.573l-2.514 1.607c-.553-.988-1.151-1.377-2.078-1.377-.946 0-1.545.597-1.545 1.377 0 .964.6 1.354 1.985 1.951l.807.344C36.452 29.645 38 30.839 38 33.523 38 36.415 35.716 38 32.65 38c-2.999 0-4.702-1.505-5.65-3.368L29.538 32.947zM17.952 33.029c.506.906 1.275 1.603 2.381 1.603 1.058 0 1.667-.418 1.667-2.043V22h3.333v11.101c0 3.367-1.953 4.899-4.805 4.899-2.577 0-4.437-1.746-5.195-3.368L17.952 33.029z" />
+                            </svg>
+                            <span>JavaScript</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+                                <path fill="#dcd5f2"
+                                    d="M40,61.5C18.22,61.5,0.5,51.855,0.5,40S18.22,18.5,40,18.5S79.5,28.145,79.5,40S61.78,61.5,40,61.5z" />
+                                <path fill="#8b75a1"
+                                    d="M40,19c21.505,0,39,9.421,39,21S61.505,61,40,61S1,51.579,1,40S18.495,19,40,19 M40,18C17.909,18,0,27.85,0,40s17.909,22,40,22s40-9.85,40-22S62.091,18,40,18L40,18z" />
+                                <path fill="#36404d"
+                                    d="M25.112 34c1.725 0 3.214.622 4.084 1.706.749.934.981 2.171.668 3.577C29.023 43.074 27.395 44 21.57 44h-4.14l1.75-10H25.112M25.112 32H17.5L14 52h2l1.056-6h4.515c5.863 0 9.053-.905 10.246-6.284C32.842 35.096 29.436 32 25.112 32L25.112 32zM61.112 34c1.725 0 3.214.622 4.084 1.706.749.934.981 2.171.668 3.577C65.023 43.074 63.395 44 57.57 44h-4.14l1.75-10H61.112M61.112 32H53.5L50 52h2l1.056-6h4.515c5.863 0 9.053-.905 10.246-6.284C68.842 35.096 65.436 32 61.112 32L61.112 32z" />
                                 <path fill="#36404d"
                                     d="M49.072,33.212C48.193,32.348,46.644,32,44.334,32h-5.538L40,26h-2.1L34,46h1.99l2.388-12h0.419h5.538c2.338,0,3.094,0.4,3.335,0.637c0.343,0.338,0.424,1.226,0.217,2.363l-1.767,9h2.106l1.626-8.63C50.199,35.462,49.936,34.062,49.072,33.212z" />
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="skill-name">PHP</span>
-                </div>
-                <!-- Java -->
-                <div class="skill-card reveal reveal-delay-4">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <path fill="#fefdef"
-                                d="M82,29.429v41.143C82,76.857,76.857,82,70.571,82H29.429C23.143,82,18,76.857,18,70.571V29.429C18,23.143,23.143,18,29.429,18h41.143C76.857,18,82,23.143,82,29.429z" />
-                            <path fill="#1f212b"
-                                d="M70.571,83H29.429C22.575,83,17,77.424,17,70.571V29.429C17,22.576,22.575,17,29.429,17h41.143C77.425,17,83,22.576,83,29.429v41.143C83,77.424,77.425,83,70.571,83z M29.429,19C23.679,19,19,23.678,19,29.429v41.143C19,76.322,23.679,81,29.429,81h41.143C76.321,81,81,76.322,81,70.571V29.429C81,23.678,76.321,19,70.571,19H29.429z" />
-                            <path fill="#f9b621"
-                                d="M47.873,51.57c-0.156,0-0.315-0.037-0.464-0.115C47.229,51.36,43,49.079,43,44.3c0-3.201,2.486-5.094,4.891-6.924c2.981-2.27,5.557-4.23,4.16-8.462c-0.174-0.524,0.111-1.09,0.636-1.263c0.526-0.172,1.09,0.112,1.263,0.636c1.844,5.586-1.866,8.411-4.847,10.68C46.901,40.643,45,42.09,45,44.3c0,3.554,3.207,5.313,3.344,5.387c0.485,0.26,0.671,0.865,0.413,1.352C48.577,51.376,48.23,51.57,47.873,51.57z" />
-                            <path fill="#5c769b"
-                                d="M57.611,60.555c-0.414,0-0.801-0.26-0.944-0.673c-0.181-0.521,0.096-1.091,0.616-1.272c1.318-0.459,4.738-2.183,4.738-4.609c0-1.035-0.39-1.34-0.518-1.441c-0.642-0.502-1.841-0.354-2.251-0.253c-0.537,0.129-1.077-0.194-1.21-0.728c-0.134-0.534,0.188-1.076,0.722-1.211c0.244-0.062,2.438-0.574,3.964,0.611c0.59,0.458,1.293,1.355,1.293,3.022c0,4.347-5.835,6.414-6.084,6.5C57.83,60.537,57.72,60.554,57.611,60.555z" />
-                            <path fill="#5c769b"
-                                d="M45.875,69.3C33.1,69.3,33.1,66.952,33.1,66.067c0-2.028,3.338-2.675,4.773-2.859c0.553-0.076,1.049,0.317,1.118,0.864c0.071,0.548-0.316,1.049-0.863,1.12c-1.167,0.151-2.437,0.535-2.902,0.854c0.711,0.447,3.477,1.253,10.649,1.253c7.766,0,13.537-1.235,14.401-2.141c-0.005-0.006-0.011-0.012-0.017-0.019c-0.371-0.409-0.341-1.041,0.067-1.413c0.408-0.371,1.042-0.341,1.413,0.067c0.58,0.639,0.738,1.398,0.435,2.085C60.68,69.261,46.479,69.3,45.875,69.3z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">Java</span>
-                </div>
-                <!-- VS Code -->
-                <div class="skill-card reveal">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <path fill="#29b6f6"
-                                d="M44,11.11v25.78c0,1.27-0.79,2.4-1.98,2.82l-8.82,4.14L34,33V15L33.2,4.15l8.82,4.14C43.21,8.71,44,9.84,44,11.11z" />
-                            <path fill="#0277bd"
-                                d="M9,33.896L34,15V5.353c0-1.198-1.482-1.758-2.275-0.86L4.658,29.239c-0.9,0.83-0.849,2.267,0.107,3.032c0,0,1.324,1.232,1.803,1.574C7.304,34.37,8.271,34.43,9,33.896z" />
-                            <path fill="#0288d1"
-                                d="M9,14.104L34,33v9.647c0,1.198-1.482,1.758-2.275,0.86L4.658,18.761c-0.9-0.83-0.849-2.267,0.107-3.032c0,0,1.324-1.232,1.803-1.574C7.304,13.63,8.271,13.57,9,14.104z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">VS Code</span>
-                </div>
-                <!-- Visual Studio -->
-                <div class="skill-card reveal reveal-delay-1">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                            <linearGradient id="vs-gr1" x1="37.67" x2="37.67" y1="3.68" y2="44.49"
-                                gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#c391f7" />
-                                <stop offset="1" stop-color="#b579f4" />
-                            </linearGradient>
-                            <path fill="url(#vs-gr1)"
-                                d="M44,10.781v26.403c0,1.147-0.653,2.193-1.684,2.696l-7.05,3.413C34.33,43.721,33.742,44,33.007,44s-1.221-0.479-1.559-0.836C31.11,42.806,34,33,34,33V6.23c0,0-3.182-0.666-2.58-1.337c0.603-0.671,1.107-0.899,1.736-0.899c0.725,0,1.311,0.323,1.971,0.641l7.174,3.443C43.342,8.577,44,9.627,44,10.781z" />
-                            <linearGradient id="vs-gr2" x1="4.6" x2="37.92" y1="38.16" y2="4.84"
-                                gradientUnits="userSpaceOnUse">
-                                <stop offset=".019" stop-color="#742fb6" />
-                                <stop offset=".38" stop-color="#5d2596" />
-                                <stop offset=".762" stop-color="#8035bf" />
-                                <stop offset=".963" stop-color="#481b6e" />
-                            </linearGradient>
-                            <path fill="url(#vs-gr2)"
-                                d="M4,32c0,1.928,0.261,2.214,2.134,3.028C7.59,35.661,8.17,36,8.559,36c0.469,0,0.91-0.323,1.327-0.664S34,15.525,34,15.525V5.546c0-1.198-1.674-1.676-2.467-0.778c0,0-24.791,27.531-25.533,28.244S5.767,31.119,4,32z" />
-                            <linearGradient id="vs-gr3" x1="4.4" x2="35.89" y1="25.41" y2="30.11"
-                                gradientUnits="userSpaceOnUse">
-                                <stop offset=".002" stop-color="#9c55d4" />
-                                <stop offset=".848" stop-color="#8343c8" />
-                                <stop offset="1" stop-color="#643499" />
-                            </linearGradient>
-                            <path fill="url(#vs-gr3)"
-                                d="M4.62,13.681c0.317-0.152,2.934-1.322,3.256-1.463C8.254,12.053,8.39,12,8.669,12c0.308,0,0.518,0.117,1.001,0.514C10.345,13.068,34,32.483,34,32.483v9.759c0,1.675-1.744,1.847-2.728,0.741C30.574,42.199,6.389,15.434,6.389,15.434S4,16.641,4,15.587C4,14.166,4.276,13.847,4.62,13.681z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">Visual Studio</span>
-                </div>
-                <!-- VB.NET -->
-                <div class="skill-card reveal reveal-delay-2">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <g transform="matrix(0.56 0 0 0.56 12 12)">
-                                <path style="fill: #a29bfe;" transform="translate(-24, -24)"
-                                    d="M 11.5 6 C 8.467 6 6 8.468 6 11.5 L 6 36.5 C 6 39.532 8.467 42 11.5 42 L 36.5 42 C 39.533 42 42 39.532 42 36.5 L 42 11.5 C 42 8.468 39.533 6 36.5 6 L 11.5 6 z M 14.251953 18 C 14.739547 18.001078 15.201344 18.289375 15.402344 18.765625 L 18.251953 25.529297 L 21.099609 18.765625 C 21.367609 18.129625 22.094328 17.828656 22.736328 18.097656 C 23.370328 18.365656 23.669344 19.098375 23.402344 19.734375 L 19.402344 29.234375 C 19.207344 29.698375 18.753 30 18.25 30 C 17.747 30 17.292656 29.698375 17.097656 29.234375 L 13.097656 19.734375 C 12.829656 19.098375 13.129625 18.365656 13.765625 18.097656 C 13.925125 18.030656 14.089422 17.999641 14.251953 18 z M 27.25 18 L 30.875 18 C 32.874 18 34.5 19.626 34.5 21.625 C 34.5 22.403 34.254938 23.123844 33.835938 23.714844 C 34.551938 24.377844 35 25.325 35 26.375 C 35 28.374 33.374 30 31.375 30 L 27.25 30 C 26.56 30 26 29.44 26 28.75 L 26 19.25 C 26 18.56 26.56 18 27.25 18 z" />
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="skill-name">VB.NET</span>
-                </div>
-                <!-- 3D / WebGL -->
-                <div class="skill-card reveal reveal-delay-3">
-                    <div class="skill-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#f5f0eb" stroke-width="2" stroke-linejoin="round">
-                            <path
-                                d="m17 13 3.4641-2V7L17 5l-3.4641 2v4M17 13l-3.4641-2M17 13v4l-7 4M17 13V9m0 4-7 4m3.536-6L10.5 12.735M10 21l-3.464-2.132M10 21v-4m-3.464 2v-.132m0 0V15L10.5 12.735m-3.964 6.133L3.5 17V5m0 0L7 3l3.5 2m-7 0 3 2M10.5 5v7.735M10.5 5 6.5 7M17 9l3.5-2M17 9l-3.5-2M10 17l-3.5-2m0 .5V7" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">3D / WebGL</span>
-                </div>
-                <!-- Oracle -->
-                <div class="skill-card reveal reveal-delay-4">
-                    <div class="skill-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                            <path fill="#f5f0eb"
-                                d="M 3 21 C 1.34375 21 0 22.425781 0 24.082031 C 0 25.738281 1.34375 27 3 27 L 6 27 C 7.65625 27 9 25.660156 9 24 C 9 22.34375 7.65625 21 6 21 Z M 10 21 L 10 27 L 11 27 L 11 22 L 14.972656 22 C 15.507813 22 16 22.492188 16 23.03125 C 16 23.566406 15.507813 24 14.972656 24 L 12 24 L 15.605469 27 L 17 27 L 14.519531 25 L 15.046875 25 C 16.167969 25 17 24.148438 17 23.03125 C 17 21.910156 16.167969 21 15.046875 21 Z M 22 21 C 21.730469 21 21.488281 21.136719 21.34375 21.363281 L 18 27 L 19.082031 27 L 22 22 L 23.761719 25 L 21 25 L 22 26 L 24.347656 26 L 24.9375 27 L 26 27 L 22.640625 21.355469 C 22.5 21.132813 22.261719 21 22 21 Z M 29 21 C 27.34375 21 26 22.34375 26 24 C 26 25.65625 27.34375 27 29 27 L 33 27 L 34 26 L 28.980469 26 C 27.886719 26 27 25.105469 27 24 C 27 22.898438 27.886719 22 28.980469 22 L 33 22 L 34 21 Z M 35 21 L 35 26.425781 C 35 26.574219 35.058594 26.714844 35.167969 26.828125 C 35.277344 26.9375 35.429688 27 35.589844 27 L 40 27 L 41 26 L 36 26 L 36 21 Z M 45 21 C 43.34375 21 42 22.34375 42 24 C 42 25.65625 43.34375 27 45 27 L 49 27 L 50 26 L 44.980469 26 C 44.058594 26 43.289063 25.363281 43.070313 24.5 L 49 24.5 L 50 23.5 L 43.070313 23.5 C 43.292969 22.640625 44.058594 22 44.980469 22 L 49 22 L 50 21 Z M 2.980469 22 L 6.019531 22 C 7.113281 22 8 22.898438 8 24 C 8 25.105469 7.113281 26 6.019531 26 L 2.980469 26 C 1.886719 26 1 25.105469 1 24 C 1 22.898438 1.886719 22 2.980469 22 Z" />
-                        </svg>
-                    </div>
-                    <span class="skill-name">Oracle</span>
+                            </svg>
+                            <span>PHP</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                                <path fill="#fefdef"
+                                    d="M82,29.429v41.143C82,76.857,76.857,82,70.571,82H29.429C23.143,82,18,76.857,18,70.571V29.429C18,23.143,23.143,18,29.429,18h41.143C76.857,18,82,23.143,82,29.429z" />
+                                <path fill="#1f212b"
+                                    d="M70.571,83H29.429C22.575,83,17,77.424,17,70.571V29.429C17,22.576,22.575,17,29.429,17h41.143C77.425,17,83,22.576,83,29.429v41.143C83,77.424,77.425,83,70.571,83z M29.429,19C23.679,19,19,23.678,19,29.429v41.143C19,76.322,23.679,81,29.429,81h41.143C76.321,81,81,76.322,81,70.571V29.429C81,23.678,76.321,19,70.571,19H29.429z" />
+                                <path fill="#f9b621"
+                                    d="M47.873,51.57c-0.156,0-0.315-0.037-0.464-0.115C47.229,51.36,43,49.079,43,44.3c0-3.201,2.486-5.094,4.891-6.924c2.981-2.27,5.557-4.23,4.16-8.462c-0.174-0.524,0.111-1.09,0.636-1.263c0.526-0.172,1.09,0.112,1.263,0.636c1.844,5.586-1.866,8.411-4.847,10.68C46.901,40.643,45,42.09,45,44.3c0,3.554,3.207,5.313,3.344,5.387c0.485,0.26,0.671,0.865,0.413,1.352C48.577,51.376,48.23,51.57,47.873,51.57z" />
+                                <path fill="#5c769b"
+                                    d="M57.611,60.555c-0.414,0-0.801-0.26-0.944-0.673c-0.181-0.521,0.096-1.091,0.616-1.272c1.318-0.459,4.738-2.183,4.738-4.609c0-1.035-0.39-1.34-0.518-1.441c-0.642-0.502-1.841-0.354-2.251-0.253c-0.537,0.129-1.077-0.194-1.21-0.728c-0.134-0.534,0.188-1.076,0.722-1.211c0.244-0.062,2.438-0.574,3.964,0.611c0.59,0.458,1.293,1.355,1.293,3.022c0,4.347-5.835,6.414-6.084,6.5C57.83,60.537,57.72,60.554,57.611,60.555z" />
+                                <path fill="#5c769b"
+                                    d="M45.875,69.3C33.1,69.3,33.1,66.952,33.1,66.067c0-2.028,3.338-2.675,4.773-2.859c0.553-0.076,1.049,0.317,1.118,0.864c0.071,0.548-0.316,1.049-0.863,1.12c-1.167,0.151-2.437,0.535-2.902,0.854c0.711,0.447,3.477,1.253,10.649,1.253c7.766,0,13.537-1.235,14.401-2.141c-0.005-0.006-0.011-0.012-0.017-0.019c-0.371-0.409-0.341-1.041,0.067-1.413c0.408-0.371,1.042-0.341,1.413,0.067c0.58,0.639,0.738,1.398,0.435,2.085C60.68,69.261,46.479,69.3,45.875,69.3z" />
+                            </svg>
+                            <span>Java</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <path fill="#29b6f6"
+                                    d="M44,11.11v25.78c0,1.27-0.79,2.4-1.98,2.82l-8.82,4.14L34,33V15L33.2,4.15l8.82,4.14C43.21,8.71,44,9.84,44,11.11z" />
+                                <path fill="#0277bd"
+                                    d="M9,33.896L34,15V5.353c0-1.198-1.482-1.758-2.275-0.86L4.658,29.239c-0.9,0.83-0.849,2.267,0.107,3.032c0,0,1.324,1.232,1.803,1.574C7.304,34.37,8.271,34.43,9,33.896z" />
+                                <path fill="#0288d1"
+                                    d="M9,14.104L34,33v9.647c0,1.198-1.482,1.758-2.275,0.86L4.658,18.761c-0.9-0.83-0.849-2.267,0.107-3.032c0,0,1.324-1.232,1.803-1.574C7.304,13.63,8.271,13.57,9,14.104z" />
+                            </svg>
+                            <span>VS Code</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                                <linearGradient id="vs-gr1" x1="37.67" x2="37.67" y1="3.68" y2="44.49"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#c391f7" />
+                                    <stop offset="1" stop-color="#b579f4" />
+                                </linearGradient>
+                                <path fill="url(#vs-gr1)"
+                                    d="M44,10.781v26.403c0,1.147-0.653,2.193-1.684,2.696l-7.05,3.413C34.33,43.721,33.742,44,33.007,44s-1.221-0.479-1.559-0.836C31.11,42.806,34,33,34,33V6.23c0,0-3.182-0.666-2.58-1.337c0.603-0.671,1.107-0.899,1.736-0.899c0.725,0,1.311,0.323,1.971,0.641l7.174,3.443C43.342,8.577,44,9.627,44,10.781z" />
+                                <linearGradient id="vs-gr2" x1="4.6" x2="37.92" y1="38.16" y2="4.84"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset=".019" stop-color="#742fb6" />
+                                    <stop offset=".38" stop-color="#5d2596" />
+                                    <stop offset=".762" stop-color="#8035bf" />
+                                    <stop offset=".963" stop-color="#481b6e" />
+                                </linearGradient>
+                                <path fill="url(#vs-gr2)"
+                                    d="M4,32c0,1.928,0.261,2.214,2.134,3.028C7.59,35.661,8.17,36,8.559,36c0.469,0,0.91-0.323,1.327-0.664S34,15.525,34,15.525V5.546c0-1.198-1.674-1.676-2.467-0.778c0,0-24.791,27.531-25.533,28.244S5.767,31.119,4,32z" />
+                                <linearGradient id="vs-gr3" x1="4.4" x2="35.89" y1="25.41" y2="30.11"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset=".002" stop-color="#9c55d4" />
+                                    <stop offset=".848" stop-color="#8343c8" />
+                                    <stop offset="1" stop-color="#643499" />
+                                </linearGradient>
+                                <path fill="url(#vs-gr3)"
+                                    d="M4.62,13.681c0.317-0.152,2.934-1.322,3.256-1.463C8.254,12.053,8.39,12,8.669,12c0.308,0,0.518,0.117,1.001,0.514C10.345,13.068,34,32.483,34,32.483v9.759c0,1.675-1.744,1.847-2.728,0.741C30.574,42.199,6.389,15.434,6.389,15.434S4,16.641,4,15.587C4,14.166,4.276,13.847,4.62,13.681z" />
+                            </svg>
+                            <span>Visual Studio</span>
+                        </li>
+                        <li class="chip">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="matrix(0.56 0 0 0.56 12 12)">
+                                    <path style="fill: #a29bfe;" transform="translate(-24, -24)"
+                                        d="M 11.5 6 C 8.467 6 6 8.468 6 11.5 L 6 36.5 C 6 39.532 8.467 42 11.5 42 L 36.5 42 C 39.533 42 42 39.532 42 36.5 L 42 11.5 C 42 8.468 39.533 6 36.5 6 L 11.5 6 z M 14.251953 18 C 14.739547 18.001078 15.201344 18.289375 15.402344 18.765625 L 18.251953 25.529297 L 21.099609 18.765625 C 21.367609 18.129625 22.094328 17.828656 22.736328 18.097656 C 23.370328 18.365656 23.669344 19.098375 23.402344 19.734375 L 19.402344 29.234375 C 19.207344 29.698375 18.753 30 18.25 30 C 17.747 30 17.292656 29.698375 17.097656 29.234375 L 13.097656 19.734375 C 12.829656 19.098375 13.129625 18.365656 13.765625 18.097656 C 13.925125 18.030656 14.089422 17.999641 14.251953 18 z M 27.25 18 L 30.875 18 C 32.874 18 34.5 19.626 34.5 21.625 C 34.5 22.403 34.254938 23.123844 33.835938 23.714844 C 34.551938 24.377844 35 25.325 35 26.375 C 35 28.374 33.374 30 31.375 30 L 27.25 30 C 26.56 30 26 29.44 26 28.75 L 26 19.25 C 26 18.56 26.56 18 27.25 18 z" />
+                                </g>
+                            </svg>
+                            <span>VB.NET</span>
+                        </li>
+                        <li class="chip">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#f5f0eb" stroke-width="2"
+                                stroke-linejoin="round">
+                                <path
+                                    d="m17 13 3.4641-2V7L17 5l-3.4641 2v4M17 13l-3.4641-2M17 13v4l-7 4M17 13V9m0 4-7 4m3.536-6L10.5 12.735M10 21l-3.464-2.132M10 21v-4m-3.464 2v-.132m0 0V15L10.5 12.735m-3.964 6.133L3.5 17V5m0 0L7 3l3.5 2m-7 0 3 2M10.5 5v7.735M10.5 5 6.5 7M17 9l3.5-2M17 9l-3.5-2M10 17l-3.5-2m0 .5V7" />
+                            </svg>
+                            <span>3D / WebGL</span>
+                        </li>
+                        <li class="chip">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                                <path fill="#f5f0eb"
+                                    d="M 3 21 C 1.34375 21 0 22.425781 0 24.082031 C 0 25.738281 1.34375 27 3 27 L 6 27 C 7.65625 27 9 25.660156 9 24 C 9 22.34375 7.65625 21 6 21 Z M 10 21 L 10 27 L 11 27 L 11 22 L 14.972656 22 C 15.507813 22 16 22.492188 16 23.03125 C 16 23.566406 15.507813 24 14.972656 24 L 12 24 L 15.605469 27 L 17 27 L 14.519531 25 L 15.046875 25 C 16.167969 25 17 24.148438 17 23.03125 C 17 21.910156 16.167969 21 15.046875 21 Z M 22 21 C 21.730469 21 21.488281 21.136719 21.34375 21.363281 L 18 27 L 19.082031 27 L 22 22 L 23.761719 25 L 21 25 L 22 26 L 24.347656 26 L 24.9375 27 L 26 27 L 22.640625 21.355469 C 22.5 21.132813 22.261719 21 22 21 Z M 29 21 C 27.34375 21 26 22.34375 26 24 C 26 25.65625 27.34375 27 29 27 L 33 27 L 34 26 L 28.980469 26 C 27.886719 26 27 25.105469 27 24 C 27 22.898438 27.886719 22 28.980469 22 L 33 22 L 34 21 Z M 35 21 L 35 26.425781 C 35 26.574219 35.058594 26.714844 35.167969 26.828125 C 35.277344 26.9375 35.429688 27 35.589844 27 L 40 27 L 41 26 L 36 26 L 36 21 Z M 45 21 C 43.34375 21 42 22.34375 42 24 C 42 25.65625 43.34375 27 45 27 L 49 27 L 50 26 L 44.980469 26 C 44.058594 26 43.289063 25.363281 43.070313 24.5 L 49 24.5 L 50 23.5 L 43.070313 23.5 C 43.292969 22.640625 44.058594 22 44.980469 22 L 49 22 L 50 21 Z M 2.980469 22 L 6.019531 22 C 7.113281 22 8 22.898438 8 24 C 8 25.105469 7.113281 26 6.019531 26 L 2.980469 26 C 1.886719 26 1 25.105469 1 24 C 1 22.898438 1.886719 22 2.980469 22 Z" />
+                            </svg>
+                            <span>Oracle</span>
+                        </li>
+                        <li class="chip chip-text"><span>React</span></li>
+                        <li class="chip chip-text"><span>Vue</span></li>
+                        <li class="chip chip-text"><span>Angular</span></li>
+                        <li class="chip chip-text"><span>Node.js</span></li>
+                        <li class="chip chip-text"><span>TypeScript</span></li>
+                        <li class="chip chip-text"><span>MySQL</span></li>
+                        <li class="chip chip-text"><span>Firebase</span></li>
+                        <li class="chip chip-text"><span>Tailwind</span></li>
+                        <li class="chip chip-text"><span>Bootstrap</span></li>
+                        <li class="chip chip-text"><span>Git</span></li>
+                        <li class="chip chip-text"><span>Godot</span></li>
+                        <li class="chip chip-text"><span>C++</span></li>
+                    </ul>
+                    <p class="sphere-hint">Drag to spin</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ========== EXPERIENCE ========== -->
-    <section class="section experience" id="experience">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <p class="section-label">// Career</p>
-                <h2 class="section-title">Work Experience</h2>
-                <div class="section-divider"></div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item reveal">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">09/2025 – 04/2026</div>
-                    <div class="timeline-role">Software Developer Intern</div>
-                    <div class="timeline-company">Quezon City Government</div>
-                    <div class="timeline-desc">
-                        Designed, developed, and maintained full-stack web applications using React, Vue.js, and Angular
-                        based on specific project requirements. Created and integrated APIs, wrote clean, efficient
-                        code, and debugged software defects in collaboration with the team.
-                    </div>
-                </div>
-                <div class="timeline-item reveal reveal-delay-2">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-date">12/2021 – 04/2022</div>
-                    <div class="timeline-role">Technical Support</div>
-                    <div class="timeline-company">Intellismart Technology Inc.</div>
-                    <div class="timeline-desc">
-                        Installed, configured, and maintained desktop computers, laptops, and peripheral hardware
-                        devices. Performed routine preventive maintenance and ensured the high availability, security,
-                        and reliability of internal IT infrastructure.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== PROJECTS — Horizontal scroll ========== -->
-    <section class="section projects" id="projects">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <p class="section-label">// Portfolio</p>
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="section-divider"></div>
-            </div>
-        </div>
-        <div class="section-container">
-            <div class="projects-grid" id="projectsScroller">
-                <!-- Project 1 -->
-                <div class="project-card reveal">
-                    <div class="project-image-wrapper">
-                        <img src="previous project/1stYearProj(called Jomari's clothing hub).png"
-                            alt="Jomari's Clothing Hub">
-                        <div class="project-image-overlay"></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">E-Commerce Apparel Store</div>
-                        <h3 class="project-title">Jorami's Clothing Hub</h3>
-                        <p class="project-desc">
-                            Developed a full-stack web application with RESTful APIs for product catalog and order
-                            management. Implemented Firebase Google OAuth for secure user authentication.
+        <!-- ========== EXPERIENCE ========== -->
+        <section class="section experience" id="experience">
+            <div class="section-container">
+                <header class="section-header" data-index="03">
+                    <p class="section-label">Career</p>
+                    <h2 class="section-title lines">
+                        <span class="line"><span>Work <em>Experience</em></span></span>
+                    </h2>
+                </header>
+                <div class="timeline" id="timeline">
+                    <div class="timeline-line"><span id="timelineFill"></span></div>
+                    <article class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">09/2025 – 04/2026</div>
+                        <h3 class="timeline-role">Software Developer Intern</h3>
+                        <div class="timeline-company">Quezon City Government</div>
+                        <p class="timeline-desc">
+                            Designed, developed, and maintained full-stack web applications using React, Vue.js, and
+                            Angular based on specific project requirements. Created and integrated APIs, wrote clean,
+                            efficient code, and debugged software defects in collaboration with the team.
                         </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Full-Stack</span>
-                            <span class="project-tag">RESTful API</span>
-                            <span class="project-tag">Firebase</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="project-image-wrapper">
-                        <img src="previous project/1st year 2nd sem medical apointment system 2023.png"
-                            alt="QCU Medical Appointment System">
-                        <div class="project-image-overlay"></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">April 2023</div>
-                        <h3 class="project-title">QCU Medical Appointment System</h3>
-                        <p class="project-desc">
-                            Built with Java to streamline medical appointment scheduling and patient data management.
-                            Features a user-friendly interface for both patients and healthcare providers.
+                    </article>
+                    <article class="timeline-item reveal reveal-delay-1">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">12/2021 – 04/2022</div>
+                        <h3 class="timeline-role">Technical Support</h3>
+                        <div class="timeline-company">Intellismart Technology Inc.</div>
+                        <p class="timeline-desc">
+                            Installed, configured, and maintained desktop computers, laptops, and peripheral hardware
+                            devices. Performed routine preventive maintenance and ensured the high availability,
+                            security, and reliability of internal IT infrastructure.
                         </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Java</span>
-                            <span class="project-tag">Healthcare</span>
-                            <span class="project-tag">System Design</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card reveal">
-                    <div class="project-image-wrapper">
-                        <img src="previous project/2nd year project kios automated rented bikes.png"
-                            alt="JPR Rental Bike System">
-                        <div class="project-image-overlay"></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">September 2023</div>
-                        <h3 class="project-title">JPR Rental Bike System</h3>
-                        <p class="project-desc">
-                            An automated kiosk system for bike rentals with seamless payment processing. Designed to
-                            integrate with public transit and adapt to changing mobility trends.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Kiosk</span>
-                            <span class="project-tag">Automation</span>
-                            <span class="project-tag">Payments</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 4 -->
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="project-image-wrapper">
-                        <img src="previous project/3rd year proj.png" alt="RENZ&CO">
-                        <div class="project-image-overlay"></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">E-commerce Web App</div>
-                        <h3 class="project-title">Renz & Co</h3>
-                        <p class="project-desc">
-                            Built a responsive front-end using HTML, CSS, Bootstrap, and Tailwind CSS for a seamless
-                            shopping experience. Integrated PayMongo and PayPal APIs for secure payments.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">Tailwind</span>
-                            <span class="project-tag">Payments API</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 5: Featured -->
-                <div class="project-card project-featured reveal">
-                    <div class="project-image-wrapper">
-                        <img src="previous project/CyberArena.png" alt="CyberArena">
-                        <div class="project-image-overlay"></div>
-                    </div>
-                    <div class="project-info">
-                        <div class="project-date">Cybersecurity Learning</div>
-                        <h3 class="project-title">CyberArena</h3>
-                        <p class="project-desc">
-                            A simplified, gamified attack-and-defend platform designed for cybersecurity learning.
-                            Developed core game mechanics and interactive learning modules using GDScript in Godot
-                            Engine.
-                        </p>
-                        <div class="project-tags">
-                            <span class="project-tag">Godot Engine</span>
-                            <span class="project-tag">GDScript</span>
-                            <span class="project-tag">Cybersecurity</span>
-                        </div>
-                    </div>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ========== EDUCATION ========== -->
-    <section class="section education" id="education">
-        <div class="section-container">
-            <div class="section-header reveal">
-                <p class="section-label">// Background</p>
-                <h2 class="section-title">Education</h2>
-                <div class="section-divider"></div>
+        <!-- ========== PROJECTS: scroll-driven horizontal track ========== -->
+        <section class="section projects" id="projects">
+            <div class="projects-pin">
+                <div class="section-container">
+                    <header class="section-header" data-index="04">
+                        <p class="section-label">Portfolio</p>
+                        <h2 class="section-title lines">
+                            <span class="line"><span>Featured <em>Projects</em></span></span>
+                        </h2>
+                        <p class="projects-count" aria-hidden="true"><span id="projectsCount">01</span> / 05</p>
+                    </header>
+                </div>
+                <div class="projects-track" id="projectsTrack">
+                    <article class="project-card reveal" data-tilt>
+                        <div class="project-image">
+                            <img src="previous project/1stYearProj(called Jomari's clothing hub).png"
+                                alt="Jomari's Clothing Hub home page" loading="lazy">
+                            <span class="project-num">01</span>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-date">E-Commerce Apparel Store</div>
+                            <h3 class="project-title">Jomari's Clothing Hub</h3>
+                            <p class="project-desc">
+                                Developed a full-stack web application with RESTful APIs for product catalog and order
+                                management. Implemented Firebase Google OAuth for secure user authentication.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Full-Stack</span>
+                                <span class="project-tag">RESTful API</span>
+                                <span class="project-tag">Firebase</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal reveal-delay-1" data-tilt>
+                        <div class="project-image">
+                            <img src="previous project/1st year 2nd sem medical apointment system 2023.png"
+                                alt="QCU Medical Appointment System" loading="lazy">
+                            <span class="project-num">02</span>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-date">April 2023</div>
+                            <h3 class="project-title">QCU Medical Appointment System</h3>
+                            <p class="project-desc">
+                                Built with Java to streamline medical appointment scheduling and patient data
+                                management. Features a user-friendly interface for both patients and healthcare
+                                providers.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Java</span>
+                                <span class="project-tag">Healthcare</span>
+                                <span class="project-tag">System Design</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal reveal-delay-2" data-tilt>
+                        <div class="project-image">
+                            <img src="previous project/2nd year project kios automated rented bikes.png"
+                                alt="JPR Rental Bike System" loading="lazy">
+                            <span class="project-num">03</span>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-date">September 2023</div>
+                            <h3 class="project-title">JPR Rental Bike System</h3>
+                            <p class="project-desc">
+                                An automated kiosk system for bike rentals with seamless payment processing. Designed
+                                to integrate with public transit and adapt to changing mobility trends.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Kiosk</span>
+                                <span class="project-tag">Automation</span>
+                                <span class="project-tag">Payments</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card reveal" data-tilt>
+                        <div class="project-image">
+                            <img src="previous project/3rd year proj.png" alt="Renz &amp; Co online store"
+                                loading="lazy">
+                            <span class="project-num">04</span>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-date">E-commerce Web App</div>
+                            <h3 class="project-title">Renz &amp; Co</h3>
+                            <p class="project-desc">
+                                Built a responsive front-end using HTML, CSS, Bootstrap, and Tailwind CSS for a
+                                seamless shopping experience. Integrated PayMongo and PayPal APIs for secure payments.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">Tailwind</span>
+                                <span class="project-tag">Payments API</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card project-featured reveal" data-tilt>
+                        <div class="project-image">
+                            <img src="previous project/CyberArena.png" alt="CyberArena game screen" loading="lazy">
+                            <span class="project-num">05</span>
+                            <span class="project-badge">Featured</span>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-date">Cybersecurity Learning</div>
+                            <h3 class="project-title">CyberArena</h3>
+                            <p class="project-desc">
+                                A simplified, gamified attack-and-defend platform designed for cybersecurity learning.
+                                Developed core game mechanics and interactive learning modules using GDScript in Godot
+                                Engine.
+                            </p>
+                            <div class="project-tags">
+                                <span class="project-tag">Godot Engine</span>
+                                <span class="project-tag">GDScript</span>
+                                <span class="project-tag">Cybersecurity</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="projects-progress" aria-hidden="true"><span id="projectsBar"></span></div>
             </div>
-            <div class="education-grid">
-                <div class="edu-card reveal">
-                    <div class="edu-level">2022 - 2026</div>
-                    <div class="edu-school">Bachelor of Science in Information Technology<br>Quezon City University
+        </section>
+
+        <!-- ========== LIFE: polaroid deck ========== -->
+        <section class="section life" id="life">
+            <div class="section-container life-layout">
+                <div class="life-copy">
+                    <header class="section-header" data-index="05">
+                        <p class="section-label">Off the Clock</p>
+                        <h2 class="section-title lines">
+                            <span class="line"><span>Beyond the</span></span>
+                            <span class="line"><span><em>Code</em></span></span>
+                        </h2>
+                    </header>
+                    <p class="life-intro reveal">
+                        Outside the editor I lift, I run, and I chase sunsets. It's the same mindset I bring to code:
+                        show up, do the reps, and finish what you start.
+                    </p>
+                    <ul class="life-list">
+                        <li class="reveal">
+                            <span class="life-ico"><svg viewBox="0 0 24 24">
+                                    <path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11" />
+                                </svg></span>
+                            <div><strong>Lifting</strong><span>Discipline beats motivation.</span></div>
+                        </li>
+                        <li class="reveal reveal-delay-1">
+                            <span class="life-ico"><svg viewBox="0 0 24 24">
+                                    <path d="M4 19c4.5 0 4-7 8-7s3.5-6 8-6" />
+                                    <circle cx="4" cy="19" r="1.6" />
+                                    <circle cx="20" cy="6" r="1.6" />
+                                </svg></span>
+                            <div><strong>Running</strong><span>10.55 km in 1h 59m. Slow pace, still finished.</span>
+                            </div>
+                        </li>
+                        <li class="reveal reveal-delay-2">
+                            <span class="life-ico"><svg viewBox="0 0 24 24">
+                                    <path d="M3 17h18M6 20h12M7 17a5 5 0 0 1 10 0M12 6v2M5.2 9.6l1.4 1.4M18.8 9.6 17.4 11" />
+                                </svg></span>
+                            <div><strong>Sunsets</strong><span>Recharge, then back to building.</span></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="deck-wrap reveal reveal-delay-2">
+                    <div class="deck" id="deck" data-cursor="Drag">
+                        <figure class="polaroid" style="--i: 0; --r: -4deg; z-index: 3">
+                            <img src="img/sunset.jpg" alt="Mark smiling by the sea at sunset" loading="lazy">
+                            <figcaption>chasing sunsets</figcaption>
+                        </figure>
+                        <figure class="polaroid" style="--i: 1; --r: 3deg; z-index: 2">
+                            <img src="img/gym.jpg" alt="Mark at the gym" loading="lazy">
+                            <figcaption>discipline &gt; motivation</figcaption>
+                        </figure>
+                        <figure class="polaroid" style="--i: 2; --r: -1.5deg; z-index: 1">
+                            <img src="img/run.webp" alt="Running stats: 10.55 km in 1 hour 59 minutes"
+                                loading="lazy" style="object-position: 50% 38%">
+                            <figcaption>10.55 km, still finished</figcaption>
+                        </figure>
                     </div>
-                </div>
-                <div class="edu-card reveal reveal-delay-1">
-                    <div class="edu-level">2018 - 2020</div>
-                    <div class="edu-school">Senior High School<br>South East Asian College Inc.</div>
-                </div>
-                <div class="edu-card reveal reveal-delay-2">
-                    <div class="edu-level">2014 - 2018</div>
-                    <div class="edu-school">Primary Education<br>Diosdado P. Macapagal Elementary School</div>
+                    <button class="btn btn-outline deck-next" id="deckNext" data-magnetic>Shuffle photos ↻</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- ========== EDUCATION ========== -->
+        <section class="section education" id="education">
+            <div class="section-container">
+                <header class="section-header" data-index="06">
+                    <p class="section-label">Background</p>
+                    <h2 class="section-title lines">
+                        <span class="line"><span><em>Education</em></span></span>
+                    </h2>
+                </header>
+                <div class="education-grid">
+                    <article class="edu-card reveal" data-tilt>
+                        <span class="edu-year" aria-hidden="true">2026</span>
+                        <div class="edu-level">2022 – 2026</div>
+                        <div class="edu-school">Bachelor of Science in Information Technology<br><span>Quezon City
+                                University</span></div>
+                    </article>
+                    <article class="edu-card reveal reveal-delay-1" data-tilt>
+                        <span class="edu-year" aria-hidden="true">2020</span>
+                        <div class="edu-level">2018 – 2020</div>
+                        <div class="edu-school">Senior High School<br><span>South East Asian College Inc.</span></div>
+                    </article>
+                    <article class="edu-card reveal reveal-delay-2" data-tilt>
+                        <span class="edu-year" aria-hidden="true">2018</span>
+                        <div class="edu-level">2014 – 2018</div>
+                        <div class="edu-school">Primary Education<br><span>Diosdado P. Macapagal Elementary
+                                School</span></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- ========== FOOTER ========== -->
     <footer class="footer" id="contact">
         <div class="footer-content">
-            <h2 class="footer-title">Let's build something<br><span class="gradient-text">together</span></h2>
+            <p class="section-label">Contact</p>
+            <h2 class="footer-title lines">
+                <span class="line"><span>Let's build something</span></span>
+                <span class="line"><span class="gradient-text"><em>together</em></span></span>
+            </h2>
             <p class="footer-subtitle">Got a project in mind? Let's connect and make it happen.</p>
+            <a class="btn btn-primary footer-email" href="mailto:lloren.markangelo.culanag@gmail.com" data-magnetic>
+                Say hello <span aria-hidden="true">→</span>
+            </a>
             <div class="footer-socials">
                 <a href="https://www.facebook.com/markangelo.lloren" target="_blank" rel="noopener"
                     aria-label="Facebook">
@@ -551,14 +723,15 @@
                         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/marulloren/" aria-label="Instagram">
+                <a href="https://www.instagram.com/marulloren/" target="_blank" rel="noopener" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                         <circle cx="12" cy="12" r="5" />
                         <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/lloren-mark-angelo-a45288406/" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/lloren-mark-angelo-a45288406/" target="_blank" rel="noopener"
+                    aria-label="LinkedIn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                         <rect x="2" y="9" width="4" height="12" />
@@ -574,16 +747,20 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Mark Angelo Lloren. Crafted with purpose.</p>
+                <p>Quezon City, PH · <span id="localTime">GMT+8</span></p>
+                <a href="#hero" class="back-top">Back to top ↑</a>
             </div>
         </div>
     </footer>
 
-    <!-- ========== RESUME MODAL ========== -->
-    <div class="modal-overlay" id="resumeModal">
+    <!-- ========== RESUME (native dialog) ========== -->
+    <dialog class="modal" id="resumeModal" aria-labelledby="resumeTitle">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Résumé</h2>
-                <button class="modal-close" id="closeResumeBtn" aria-label="Close modal">&times;</button>
+                <h2 class="modal-title" id="resumeTitle">Résumé</h2>
+                <form method="dialog">
+                    <button class="modal-close" aria-label="Close résumé">&times;</button>
+                </form>
             </div>
 
             <div class="modal-section">
@@ -609,7 +786,7 @@
                 <div class="modal-item"><strong>Frontend:</strong> HTML, CSS, Bootstrap, Tailwind CSS, React, Vue,
                     Angular</div>
                 <div class="modal-item"><strong>Databases:</strong> MySQL, Firebase Firestore</div>
-                <div class="modal-item"><strong>APIs & Integrations:</strong> RESTful APIs, Firebase Google OAuth,
+                <div class="modal-item"><strong>APIs &amp; Integrations:</strong> RESTful APIs, Firebase Google OAuth,
                     PayMongo, PayPal</div>
                 <div class="modal-item"><strong>Tools:</strong> Visual Studio Code, Git</div>
             </div>
@@ -624,217 +801,10 @@
                     (2014 – 2018)</div>
             </div>
         </div>
-    </div>
+    </dialog>
 
-    <!-- ========== SCRIPTS ========== -->
-    <script>
-        (function () {
-            'use strict';
-
-            /* ---- Cursor Glow ---- */
-            const cursorGlow = document.getElementById('cursorGlow');
-            if (window.matchMedia('(pointer: fine)').matches) {
-                document.addEventListener('mousemove', (e) => {
-                    cursorGlow.style.left = e.clientX + 'px';
-                    cursorGlow.style.top = e.clientY + 'px';
-                });
-            } else {
-                cursorGlow.style.display = 'none';
-            }
-
-            /* ---- Navbar scroll ---- */
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', () => {
-                navbar.classList.toggle('scrolled', window.scrollY > 50);
-            });
-
-            /* ---- Mobile nav toggle ---- */
-            const navToggle = document.getElementById('navToggle');
-            const navLinks = document.getElementById('navLinks');
-            navToggle.addEventListener('click', () => {
-                navToggle.classList.toggle('active');
-                navLinks.classList.toggle('mobile-open');
-            });
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navToggle.classList.remove('active');
-                    navLinks.classList.remove('mobile-open');
-                });
-            });
-
-            /* ---- Resume modal ---- */
-            const resumeModal = document.getElementById('resumeModal');
-            document.getElementById('openResumeBtn').addEventListener('click', () => {
-                resumeModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-            document.getElementById('closeResumeBtn').addEventListener('click', () => {
-                resumeModal.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-            resumeModal.addEventListener('click', (e) => {
-                if (e.target === resumeModal) {
-                    resumeModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-
-            /* ---- Scroll reveal ---- */
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-            revealElements.forEach(el => revealObserver.observe(el));
-
-            /* ---- Particle Canvas (amber-toned) ---- */
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            let mouseX = -1000, mouseY = -1000;
-
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            canvas.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouseX = e.clientX - rect.left;
-                mouseY = e.clientY - rect.top;
-            });
-            canvas.addEventListener('mouseleave', () => {
-                mouseX = -1000;
-                mouseY = -1000;
-            });
-
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 1.5 + 0.3;
-                    this.speedX = (Math.random() - 0.5) * 0.3;
-                    this.speedY = (Math.random() - 0.5) * 0.3;
-                    this.opacity = Math.random() * 0.4 + 0.05;
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-
-                    const dx = this.x - mouseX;
-                    const dy = this.y - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 100) {
-                        const force = (100 - dist) / 100;
-                        this.x += (dx / dist) * force * 1.5;
-                        this.y += (dy / dist) * force * 1.5;
-                    }
-
-                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-                    this.x = Math.max(0, Math.min(canvas.width, this.x));
-                    this.y = Math.max(0, Math.min(canvas.height, this.y));
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(232, 168, 73, ${this.opacity})`;
-                    ctx.fill();
-                }
-            }
-
-            function initParticles() {
-                const count = Math.min(Math.floor((canvas.width * canvas.height) / 10000), 120);
-                particles = [];
-                for (let i = 0; i < count; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function drawLines() {
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 120) {
-                            const opacity = (1 - dist / 120) * 0.08;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(212, 118, 60, ${opacity})`;
-                            ctx.lineWidth = 0.4;
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => { p.update(); p.draw(); });
-                drawLines();
-                requestAnimationFrame(animate);
-            }
-
-            initParticles();
-            animate();
-
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                initParticles();
-            });
-
-            /* ---- Drag-scroll for projects ---- */
-            const scroller = document.getElementById('projectsScroller');
-            if (scroller) {
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-
-                scroller.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    scroller.style.cursor = 'grabbing';
-                    startX = e.pageX - scroller.offsetLeft;
-                    scrollLeft = scroller.scrollLeft;
-                });
-                scroller.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    scroller.style.cursor = 'grab';
-                });
-                scroller.addEventListener('mouseup', () => {
-                    isDown = false;
-                    scroller.style.cursor = 'grab';
-                });
-                scroller.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - scroller.offsetLeft;
-                    const walk = (x - startX) * 1.5;
-                    scroller.scrollLeft = scrollLeft - walk;
-                });
-            }
-
-            /* ---- Smooth scroll for anchor links ---- */
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-        })();
-    </script>
+    <script src="portrait.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>
